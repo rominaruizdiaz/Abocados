@@ -1,11 +1,11 @@
 <script setup>
-
+import CardsContainer from "../components/home/CardsContainer.vue";
 </script>
 
 <template>
-    <div>
-        
-    </div>
+    <main>
+        <CardsContainer/>
+    </main>
 </template>
 
 <style lang="scss" scoped>
