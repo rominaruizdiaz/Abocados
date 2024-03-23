@@ -66,6 +66,7 @@ section {
 @media screen and (min-width: 1400px) {
     #card_container {
         gap: 0 3rem;
+        padding: 1rem 0.1rem;
     }
 }
 

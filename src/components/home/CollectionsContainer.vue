@@ -51,14 +51,15 @@ section {
 }
 
 #collection_container {
+    padding: 1rem;
     overflow-x: auto;
     display: flex;
-    gap: 1rem;
 }
 
 @media screen and (min-width: 1400px) {
     #collection_container {
-        gap: 3rem;
+        gap: 0 3rem;
+        padding: 1rem 0.1rem;
     }
 }
 

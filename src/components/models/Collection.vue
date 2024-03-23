@@ -17,13 +17,21 @@ const props = defineProps({
 <style lang="scss" scoped>
 
 div {
-    background-color: rgb(0, 104, 208);
+    background-color: rgb(255, 226, 154);
     padding: 1rem;
     width: 17rem;
     border-radius: 10px;
-    height: 23rem;
+    height: 15rem;
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
     flex-shrink: 0;
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 900;
+        text-align: center;
+    }
 }
 </style>
