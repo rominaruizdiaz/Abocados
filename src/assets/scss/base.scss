@@ -15,3 +15,7 @@ h2 {
   font-size: 1.5rem;
   font-weight: 500;
 }
+
+.shadow {
+  filter: drop-shadow(1px 3px 4px rgba(140, 140, 140, 0.306));
+}

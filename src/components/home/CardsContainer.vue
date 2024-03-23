@@ -9,13 +9,20 @@ const recipes = ref([]);
 const getRecipes = async () => {
     try {
         await recipesStore.allRecipes();
-        recipes.value = recipesStore.recipes.sort((a, b) => b.creationTime - a.creationTime).slice(0, 5);
+        
+        recipes.value = recipesStore.recipes
+            .map(recipe => ({
+                ...recipe,
+                creationDate: new Date(recipe.creationTime)
+            }))
+            .sort((a, b) => b.creationDate - a.creationDate)
+            .slice(0, 5);
+
     } catch (error) {
         console.error('Hubo un problema al obtener las recetas:', error);
     }
 };
 getRecipes();
-
 </script>
 
 <template>
@@ -51,14 +58,14 @@ section {
 }
 
 #card_container {
+    padding: 1rem;
     overflow-x: auto;
     display: flex;
-    gap: 1rem;
 }
 
 @media screen and (min-width: 1400px) {
     #card_container {
-        gap: 3rem;
+        gap: 0 3rem;
     }
 }
 
