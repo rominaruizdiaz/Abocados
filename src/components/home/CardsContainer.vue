@@ -29,7 +29,7 @@ getRecipes();
     <section>
         <div id="text_container">
             <h2>Últimas recetas</h2>
-            <p>ver más</p>
+            <router-link to="/recipes">ver más</router-link>
         </div>
         <div id="card_container">
             <Card :recipe="recipe" v-for="recipe in recipes" :key="recipe.id" />
@@ -45,15 +45,19 @@ section {
     flex-direction: column;
     gap: 1rem;
     overflow: hidden;
-
 }
 #text_container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    p {
-        font-weight: 500;
+    a {
+        font-weight: 800;
+        transition: all 200ms ease-in-out;
+    }
+    a:hover {
+        color: $button-hover;
+        font-weight: 800;
     }
 }
 
