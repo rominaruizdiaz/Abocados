@@ -1,7 +1,7 @@
 <script setup>
 import Card from './../models/Card.vue';
 import { useRecipesStore } from './../../stores/RecipeStore';
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 const recipesStore = useRecipesStore();
 const recipes = ref([]);
@@ -9,7 +9,7 @@ const recipes = ref([]);
 const getRecipes = async () => {
     try {
         await recipesStore.allRecipes();
-        recipes.value = recipesStore.recipes;
+        recipes.value = recipesStore.recipes.sort((a, b) => b.creationTime - a.creationTime).slice(0, 5);
     } catch (error) {
         console.error('Hubo un problema al obtener las recetas:', error);
     }
@@ -19,11 +19,47 @@ getRecipes();
 </script>
 
 <template>
-    <div>
-        <Card :recipe="recipe" v-for="recipe in recipes" :key="recipe.id" />
-    </div>
+    <section>
+        <div id="text_container">
+            <h2>Últimas recetas</h2>
+            <p>ver más</p>
+        </div>
+        <div id="card_container">
+            <Card :recipe="recipe" v-for="recipe in recipes" :key="recipe.id" />
+        </div>
+    </section>
 </template>
 
 <style lang="scss" scoped>
+
+section {
+    padding: 4.5rem 1.5rem 4.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: hidden;
+
+}
+#text_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+        font-weight: 500;
+    }
+}
+
+#card_container {
+    overflow-x: auto;
+    display: flex;
+    gap: 1rem;
+}
+
+@media screen and (min-width: 1400px) {
+    #card_container {
+        gap: 3rem;
+    }
+}
 
 </style>

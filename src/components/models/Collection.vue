@@ -1,7 +1,7 @@
 <script setup>
 
 const props = defineProps({
-    recipe: Object
+    collection: Object
 })
 
 </script>
@@ -9,11 +9,7 @@ const props = defineProps({
 <template>
     <div>
 
-        <h1>{{ recipe.name }}</h1>
-        <h1>{{ recipe.description }}</h1>
-        <h1>{{ recipe.preparationTime }}</h1>
-        <h1>{{ recipe.caloriesPerPortion }}</h1>
-        <h1>{{ recipe.portions }}</h1>
+        <h1>{{ collection.name }}</h1>
 
     </div>
 </template>
@@ -21,7 +17,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 
 div {
-    background-color: rgb(212, 255, 241);
+    background-color: rgb(0, 104, 208);
     padding: 1rem;
     width: 17rem;
     border-radius: 10px;
