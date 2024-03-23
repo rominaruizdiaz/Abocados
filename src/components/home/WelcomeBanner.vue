@@ -1,86 +1,106 @@
 <script setup>
+
 </script>
 
 <template>
     <section>
-        <div id="new_content_container">
-            <h1 id="highlight" class="shadow">NUEVO: ¡Adapta tus porciones!</h1>
-            <p> ¡Ajusta las porciones de tus recetas según tus necesidades! ¿Quieres más o menos ingredientes? ¡No hay problema! Abocados te da el control total para adaptar tus recetas a tu gusto.</p>
-            <a class="shadow" href="">Probar ahora</a>
+        <img id="avocado-without" src="/images/avocado-without-seed.svg" alt="avocado without seed">
+        <div>
+            <h1 class="shadow">Abocados</h1>
+            <p>¡Disfruta comiendo a bocados!</p>
         </div>
-        <div id="image_container"></div>
+        <img id="avocado-with" src="/images/avocado-with-seed.svg" alt="avocado with seed">
     </section>
 </template>
 
 <style lang="scss" scoped>
+
 section {
-    background-color: $background-color;
     height: 30rem;
+    background-color: $background-color;
     display: flex;
-}
-
-#new_content_container {
-    width: 50%;
-    padding: 7%;
-    display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    flex-direction: column;
-    text-align: center;
-    gap: 1rem;
 
-    h1 {
-        font-family: "Oswald", sans-serif;
-        font-size: 2rem;
-        font-weight: 900;
-        color: white;
-    }
+    div {
+        text-align: center;
+        margin: 0 1rem;
+        h1 {
+            font-size: 4rem;
+            color: white;
+            font-weight: 700;
+        }
 
-    p {
-        font-size: 1.4rem;
-        color: white;
-    }
-
-    a {
-        padding: 1rem 2rem;
-        background-color: $button-primary-color;
-        border-radius: 10px;
-        color: white;
-        font-size: 1.2rem;
-        font-weight: 900;
-        transition: all 200ms ease-in-out;
-    }
-
-    a:hover {
-        color: white;
-        background-color: $button-hover;
-        filter: drop-shadow(0px 0px 10px $button-hover-shadow);
+        p {
+            font-size: 2rem;
+            color: white;
+        }
     }
 }
 
-#image_container {
-    width: 50%;
-    height: 100%;
-    background-image: url("/images/fruits-halloween.jpeg");
-    background-position: bottom;
+img {
+    animation: floatAndShake 4s infinite;
+    position: relative;
+}
+
+#avocado-with {
+    top: 5rem;
+}
+
+#avocado-without {
+    bottom: 5rem;
+}
+@keyframes floatAndShake {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg); 
+    }
+    25% {
+        transform: translateY(-20px) translateX(0) rotate(-5deg); 
+    }
+    50% {
+        transform: translateY(0) translateX(0) rotate(0deg); 
+    }
+    75% {
+        transform: translateY(-20px) translateX(0) rotate(5deg); 
+    }
+    100% {
+        transform: translateY(0) translateX(0) rotate(0deg); 
+    }
 }
 
 @media screen and (max-width: 1000px) {
-
     section {
-    height: 40rem;
-    display: flex;
-    flex-direction: column;
+        flex-direction: column;
 
-    #new_content_container {
-        width: 100%;
-    }
+    div {
+        margin: 0 1rem;
+        h1 {
+            font-size: 3rem;
+            color: white;
+            font-weight: 700;
+        }
 
-    #image_container {
-        width: 100%;
-        background-position: 25% 75%;
-        background-size: cover;
+        p {
+            font-size: 1.5rem;
+            color: white;
+        }
     }
 }
+
+    img {
+        width: 6rem;
+        animation: floatAndShake 4s infinite;
+    }
+
+    #avocado-with {
+        top: 2rem;
+        left: 8rem;
+    }
+
+    #avocado-without {
+        bottom: 2rem;
+        right: 8rem;
+    
+    }
 }
 </style>

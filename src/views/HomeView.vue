@@ -1,4 +1,5 @@
 <script setup>
+import TryNowBanner from "../components/home/TryNowBanner.vue";
 import CardsContainer from "./../components/home/CardsContainer.vue";
 import CollectionsContainer from "./../components/home/CollectionsContainer.vue";
 import WelcomeBanner from "./../components/home/WelcomeBanner.vue";
@@ -6,10 +7,11 @@ import WelcomeBanner from "./../components/home/WelcomeBanner.vue";
 
 <template>
     <main>
+        <WelcomeBanner/>
         <section class="center">
             <CardsContainer/>
         </section>
-        <WelcomeBanner/>
+        <TryNowBanner/>
         <section class="center">
             <CollectionsContainer/>
         </section>
