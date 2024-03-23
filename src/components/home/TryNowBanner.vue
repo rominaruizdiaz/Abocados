@@ -52,7 +52,6 @@ section {
     }
 
     a:hover {
-        color: white;
         background-color: $button-hover;
         filter: drop-shadow(0px 0px 10px $button-hover-shadow);
     }
