@@ -43,19 +43,16 @@ const prevPage = () => {
 <template>
     <section>
 
-
         <div id="cards_container" v-if="paginatedRecipes.length">
             <Card :recipe="recipe" v-for="recipe in paginatedRecipes" :key="recipe.id" />
         </div>
 
-
-
-
         <div id="pagination">
             <button @click="prevPage" :disabled="currentPage === 1">Anterior</button>
-            <span>Página {{ currentPage }} de {{ totalPages }}</span>
+            <p>Página {{ currentPage }} de {{ totalPages }}</p>
             <button @click="nextPage" :disabled="currentPage === totalPages">Siguiente</button>
         </div>
+
     </section>
 </template>
 
@@ -66,7 +63,7 @@ section {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 3rem;
 }
 #cards_container {
     width: 100%;
@@ -76,5 +73,8 @@ section {
     gap: 2rem;
 }
 
-
+#pagination {
+  display: flex;
+  gap: 3rem;
+}
 </style>
