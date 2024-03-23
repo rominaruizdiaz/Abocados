@@ -12,33 +12,40 @@ const recipeName = upperCaseFirstLetter(props.recipe.name);
 </script>
 
 <template>
-    <div id="card_container" class="shadow">
-        <section id="image_container">
-        </section>
-        <section id="data_container">
-            <h1>{{ recipeName }}</h1>
-            <p>{{ recipe.description }}</p>
-            <div id="data_details">
-                <div>
-                    <img src="/icons/icon-time.svg" alt="clock icon">
-                    <p>{{ recipe.preparationTime }}</p>
+    <router-link :to="{ path: `/recipe/${props.recipe.id}`}">
+        <div id="card_container" class="shadow">
+            <section id="image_container">
+            </section>
+            <section id="data_container">
+                <h1>{{ recipeName }}</h1>
+                <p>{{ recipe.description }}</p>
+                <div id="data_details">
+                    <div>
+                        <img src="/icons/icon-time.svg" alt="clock icon">
+                        <p>{{ recipe.preparationTime }}</p>
+                    </div>
+                    <div>
+                        <img src="/icons/icon-energy.svg" alt="energy icon">
+                        <p>{{ recipe.caloriesPerPortion }}</p>
+                    </div>
+                    <div>
+                        <img src="/icons/icon-person.svg" alt="person icon">
+                        <p>{{ recipe.portions }}</p>     
+                    </div>
                 </div>
-                <div>
-                    <img src="/icons/icon-energy.svg" alt="energy icon">
-                    <p>{{ recipe.caloriesPerPortion }}</p>
-                </div>
-                <div>
-                    <img src="/icons/icon-person.svg" alt="person icon">
-                    <p>{{ recipe.portions }}</p>     
-                </div>
-            </div>
-        </section>
-
-    </div>
+            </section>
+        </div>
+    </router-link>
 </template>
 
 <style lang="scss" scoped>
-
+a {
+    color: black;
+    transition: all 200ms ease-in-out;
+}
+a:hover {
+    transform: scale(1.05);
+}
 #card_container {
     width: 17rem;
     height: 23rem;

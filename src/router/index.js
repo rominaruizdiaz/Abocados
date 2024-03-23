@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './../views/HomeView.vue';
 import RecipesView from './../views/RecipesView.vue';
+import RecipeView from './../views/RecipeView.vue';
 
 
 
@@ -17,6 +18,12 @@ const router = createRouter({
       path: '/recipes',
       name: 'recipes',
       component: RecipesView,
+    },
+    {
+      path: '/recipe/:id',
+      name: 'recipe',
+      component: RecipeView,
+      props: true
     },
   ]
 

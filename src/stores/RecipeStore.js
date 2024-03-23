@@ -54,6 +54,14 @@ export const useRecipesStore = defineStore('recipes', {
         this.error = error.message;
         return null;
       }
+    },
+    async getRecipeById(id) {
+      try {
+        return await RecipeService.getRecipeById(id);
+      } catch (error) {
+        this.error = error.message;
+        return null;
+      }
     }
   }
 });

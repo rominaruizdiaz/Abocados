@@ -45,6 +45,7 @@ section {
     flex-direction: column;
     gap: 1rem;
     overflow: hidden;
+
 }
 #text_container {
     display: flex;
@@ -62,6 +63,7 @@ section {
 }
 
 #card_container {
+    gap: 1rem;
     padding: 1rem;
     overflow-x: auto;
     display: flex;
@@ -70,7 +72,7 @@ section {
 @media screen and (min-width: 1400px) {
     #card_container {
         gap: 0 3rem;
-        padding: 1rem 0.1rem;
+        padding: 1rem;
     }
 }
 
