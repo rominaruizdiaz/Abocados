@@ -1,6 +1,7 @@
 <script setup>
-import CardsContainer from "../components/home/CardsContainer.vue";
-import CollectionsContainer from "../components/home/CollectionsContainer.vue";
+import CardsContainer from "./../components/home/CardsContainer.vue";
+import CollectionsContainer from "./../components/home/CollectionsContainer.vue";
+import WelcomeBanner from "./../components/home/WelcomeBanner.vue";
 </script>
 
 <template>
@@ -8,6 +9,7 @@ import CollectionsContainer from "../components/home/CollectionsContainer.vue";
         <section class="center">
             <CardsContainer/>
         </section>
+        <WelcomeBanner/>
         <section class="center">
             <CollectionsContainer/>
         </section>

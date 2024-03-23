@@ -54,6 +54,7 @@ section {
     padding: 1rem;
     overflow-x: auto;
     display: flex;
+    gap: 1rem;
 }
 
 @media screen and (min-width: 1400px) {

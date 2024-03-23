@@ -50,7 +50,7 @@ const recipeName = upperCaseFirstLetter(props.recipe.name);
 #image_container {
     height: 40%;
     border-radius: 10px 10px 0 0;
-    background-color: rgb(255, 226, 154);
+    background-color: $not-found;
     display: flex;
     align-items: end;
 

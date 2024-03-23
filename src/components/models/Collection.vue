@@ -17,7 +17,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 
 div {
-    background-color: rgb(255, 226, 154);
+    background-color: $not-found;
     padding: 1rem;
     width: 17rem;
     border-radius: 10px;
