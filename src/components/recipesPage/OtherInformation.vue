@@ -4,15 +4,15 @@
 
 <template>
     <section>
-        vvvvvv
+        <Ingredient/>
     </section>
 </template>
 
 <style lang="scss" scoped>
 
 section {
-    background-color: aqua;
-    width: 30rem;
+    background-color: rgb(26, 255, 0);
+    width: 40rem;
     padding: 1rem;
 }
 </style>

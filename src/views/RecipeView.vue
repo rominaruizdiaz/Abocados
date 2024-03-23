@@ -1,6 +1,8 @@
 <script setup>
 import { useRecipesStore } from "./../stores/RecipeStore";
 import { ref, watchEffect } from "vue";
+import IngredientsFacts from "./../components/recipesPage/IngredientsFacts.vue";
+import OtherInformation from "./../components/recipesPage/OtherInformation.vue";
 
 const props = defineProps({
     id: String,
@@ -51,7 +53,10 @@ watchEffect(async () => {
             </div>
         </section>
         <section id="recipe_data">
-            <IngredientsFacts/>
+            <div id="recipe_data_container">
+                <IngredientsFacts/>
+                <OtherInformation/>
+            </div>
         </section>
     </main>
 </template>
@@ -144,8 +149,14 @@ watchEffect(async () => {
 #recipe_data {
     background-color: white;
     filter: drop-shadow(0px -8px 16px #d8d8d8);
-    height: 45rem;
     margin-top: -10.5rem;
+
+    > #recipe_data_container {
+        display: flex;
+        gap: 3rem;
+        justify-content: center;
+        padding-top: 20rem;
+    }
 }
 
 @media screen and (max-width: 900px) {
