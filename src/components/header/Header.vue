@@ -1,18 +1,9 @@
 <script setup>
-
-const showSidebar = () => {
-	const sidebar = document.querySelector(".sidebar");
-	sidebar.style.display = "flex";
-};
-const hideSidebar = () => {
-	const sidebar = document.querySelector(".sidebar");
-	sidebar.style.display = "none";
-};
-
 </script>
 
 <template>
     <header>
+
         <div>
             <img src="/images/logotype.svg" alt="abocados logotype">
         </div>
@@ -31,7 +22,6 @@ const hideSidebar = () => {
                 <img src="/icons/hamburger-menu.svg" alt="">
 			</li>
         </div>
-
         <div class="sidebar">
 				<li @click="hideSidebar">
                     <img src="/icons/cross-icon.svg" alt="close form">
@@ -50,6 +40,8 @@ const hideSidebar = () => {
 
 <style lang="scss" scoped>
 header {
+    position: relative;
+    z-index: 10;
     height: 7rem;
     background-color: $background-color;
     filter: drop-shadow(1px 3px 4px #0000003b);
@@ -84,7 +76,6 @@ hr {
     height: 100vh;
 	top: 0;
 	right: 0;
-	z-index: 1;
 	background-color: white;
 	box-shadow: -10px 0 10px rgba(0, 0, 0, 0.244);
 	display: none;

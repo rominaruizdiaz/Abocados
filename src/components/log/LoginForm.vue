@@ -2,6 +2,10 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import { useAuthStore } from "./../../stores/AuthStore"
+import { useRoute, useRouter } from "vue-router";
+
+const route = useRoute()
+const router = useRouter()
 
 const uri = import.meta.env.VITE_API_ENDPOINT_GENERAL;
 
@@ -32,30 +36,39 @@ try {
 
         console.log(authStore.userRole)
 
+        redirectToHome()
+
         } catch (error) {
             console.error(error);
         }
 };
 
+function redirectToHome() {
+  const redirectPath = route.query.redirect || '/'
+  router.push(redirectPath)
+}
+
 </script>
 
 <template>
-    <form @submit.prevent="submitForm">
-        <h1>¡Bienvenido a Abocados!</h1>
-        <div>
+    <section>
+        <form @submit.prevent="submitForm">
+            <h1>¡Bienvenido a Abocados!</h1>
+            <div>
+                <div class="input_box">
+                <label>Nombre de usuario:</label>
+                <input v-model="usernameInput" type="text" placeholder="nombre de usuario" required class="shadow">
+            </div>
             <div class="input_box">
-            <label>Nombre de usuario:</label>
-            <input v-model="usernameInput" type="text" placeholder="nombre de usuario" required class="shadow">
-        </div>
-        <div class="input_box">
-            <label>Contraseña:</label>
-            <input v-model="passwordInput" type="password" placeholder="contraseña" required class="shadow">
-        </div>
-        <div class="submit_container">
-            <button type="submit" >Enviar</button>
-        </div>
-        </div>
-    </form>
+                <label>Contraseña:</label>
+                <input v-model="passwordInput" type="password" placeholder="contraseña" required class="shadow">
+            </div>
+            <div class="submit_container">
+                <button type="submit" >Enviar</button>
+            </div>
+            </div>
+        </form>
+    </section>
 </template>
 
 <style lang="scss" scoped>
@@ -103,6 +116,19 @@ form {
             border-radius: 10px;
             border: none;
         }
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    section {
+        display: flex;
+        justify-content: center;
+        width: 50%;
+        
+    }
+
+    form {
+        justify-content: center;
     }
 }
 </style>
