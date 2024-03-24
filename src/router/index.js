@@ -3,7 +3,7 @@ import HomeView from './../views/HomeView.vue';
 import RecipesView from './../views/RecipesView.vue';
 import RecipeView from './../views/RecipeView.vue';
 import IngredientsView from './../views/IngredientsView.vue';
-
+import IngredientView from './../views/IngredientView.vue';
 
 
 const router = createRouter({
@@ -30,6 +30,12 @@ const router = createRouter({
       component: RecipeView,
       props: true
     },
+    {
+      path: '/ingredient/:id',
+      name: 'ingredient',
+      component: IngredientView,
+      props: true
+    }
   ]
 
 });

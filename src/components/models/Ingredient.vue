@@ -5,12 +5,10 @@ const props = defineProps({
     ingredient: Object
 });
 
-console.log(props.ingredient);
-
 </script>
 
 <template>
-    <router-link to="" class="shadow">
+    <router-link :to="{ path: `/ingredient/${props.ingredient.id}`}" class="shadow">
         <div id="image_container"></div>
         <h1>{{ props.ingredient.name }}</h1>
     </router-link>

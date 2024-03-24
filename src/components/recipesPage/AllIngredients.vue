@@ -8,7 +8,7 @@ const ingredients = ref([]);
 const currentPage = ref(1);
 const ingredientsPerPage = 12;
 
-const totalPages = computed(() => Math.ceil(ingredients.value.length / ingredientsPerPage));
+const totalPages = computed(() => Math.ceil(ingredientsStore.ingredients.length / ingredientsPerPage));
 
 const getIngredients = async () => {
     try {
