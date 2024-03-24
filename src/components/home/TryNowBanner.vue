@@ -6,7 +6,7 @@
         <div id="new_content_container">
             <h1 id="highlight" class="shadow">NUEVO: ¡Adapta tus porciones!</h1>
             <p> ¡Ajusta las porciones de tus recetas según tus necesidades! ¿Quieres más o menos ingredientes? ¡No hay problema! Abocados te da el control total para adaptar tus recetas a tu gusto.</p>
-            <a class="shadow" href="">Probar ahora</a>
+            <router-link to="/login">Probar ahora</router-link>
         </div>
         <div id="image_container"></div>
     </section>
