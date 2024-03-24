@@ -1,4 +1,5 @@
 <script setup>
+import SearchRecipeIngredients from '../SearchRecipeIngredients.vue';
 import { useIngredientsStore } from './../../stores/IngredientsStore';
 
 const store = useIngredientsStore();
@@ -27,6 +28,8 @@ const newIngredient = {
   sodium: null,
   potasio: null,
   categoryName: ''
+  // array vacio
+  //añadir objetos dentro desde ingredientid
 };
 
 const addNewIngredient = async () => {
@@ -39,24 +42,6 @@ const addNewIngredient = async () => {
     console.error('Error al agregar el ingrediente:', error);
   }
 };
-
-const categories = [
-  'Frutas',
-  'Verduras',
-  'Cereales y granos',
-  'Legumbres y frutos secos',
-  'Carnes y aves',
-  'Pescados y mariscos',
-  'Huevos y productos lácteos',
-  'Aceites y grasas',
-  'Azúcares y dulces',
-  'Bebidas',
-  'Productos procesados',
-  'Alimentos preparados',
-  'Alimentos fermentados',
-  'Alimentos funcionales',
-  'Alimentos para regímenes específicos'
-];
 
 </script>
 
@@ -77,19 +62,12 @@ const categories = [
         <div>
           
           <article>
-  
+  <SearchRecipeIngredients/>
             <div class="input-group">
               <label for="name">Nombre:</label>
               <input type="text" id="name" v-model="newIngredient.name" required pattern="[A-Za-z]+" title="Ingrese solo letras">
             </div>
             
-            <div class="input-group">
-              <label for="category">Categoría:</label>
-              <select id="category" v-model="newIngredient.category" required>
-                <option value="">Seleccione una categoría</option>
-                <option v-for="category in categories" :value="category">{{ category }}</option>
-              </select>
-            </div>
       
             <div class="input-group">
               <label for="weight">Peso (g):</label>
@@ -294,4 +272,4 @@ form {
   }
 }
 
-</style>
+</style>../SearchRecipeIngredients.vue

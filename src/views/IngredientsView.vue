@@ -1,5 +1,6 @@
 <script setup>
 import AllIngredients from '../components/recipesPage/AllIngredients.vue';
+import SearchIngredients from '../components/SearchIngredients.vue';
 
 
 </script>
@@ -7,6 +8,7 @@ import AllIngredients from '../components/recipesPage/AllIngredients.vue';
 <template>
     <main >
         <h1>Todos los ingredientes</h1>
+        <SearchIngredients/>
         <AllIngredients/>
     </main>
 </template>

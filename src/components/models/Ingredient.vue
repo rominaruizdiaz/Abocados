@@ -25,6 +25,8 @@ a {
 }
 a:hover {
     transform: scale(1.05);
+    position: relative;
+    z-index: 10;
 }
 #image_container {
     background-color: $not_found;
