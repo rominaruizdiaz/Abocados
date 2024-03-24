@@ -69,7 +69,7 @@ watchEffect(async () => {
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
-    z-index: 1;
+    z-index: 10;
     bottom: -10rem;
 
     > article {
