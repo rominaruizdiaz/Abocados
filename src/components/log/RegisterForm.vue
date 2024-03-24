@@ -1,6 +1,10 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+import { useRoute, useRouter } from "vue-router";
+
+const route = useRoute()
+const router = useRouter()
 
 const uri = import.meta.env.VITE_API_ENDPOINT_GENERAL;
 
@@ -23,11 +27,16 @@ const submitForm = async () => {
     } else {
       console.log('Error al registrar el usuario.');
     }
+    redirectToHome()
   } catch (error) {
     console.error(error);
   }
 };
 
+function redirectToHome() {
+  const redirectPath = route.query.redirect || '/'
+  router.push(redirectPath)
+}
 </script>
 
 <template>

@@ -27,14 +27,12 @@ try {
         );
         const data = response.data;
         const userRole = data.roles;
+        
+        const userName = data.username;
 
         authStore.userRole = userRole;
-
+        authStore.username = userName;
         authStore.isAuthenticated = true;
-        
-        console.log(authStore.isAuthenticated)
-
-        console.log(authStore.userRole)
 
         redirectToHome()
 

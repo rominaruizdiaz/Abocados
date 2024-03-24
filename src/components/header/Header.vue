@@ -1,4 +1,7 @@
 <script setup>
+import { useAuthStore } from './../../stores/AuthStore';
+import Profile from './../log/Profile.vue';
+const authStore = useAuthStore();
 </script>
 
 <template>
@@ -15,9 +18,8 @@
             <router-link to="/help" exact-active-class="active" class="hideOnMobile">Ayuda</router-link>
         </div>
         <div class="navbar">
-            <router-link to="/login" exact-active-class="active" class="hideOnMobile">Iniciar sesión</router-link>
-            <hr class="hideOnMobile">
-            <router-link to="/search" class="hideOnMobile"><img src="/icons/search-icon.svg" alt=""></router-link>
+            <router-link to="/login" exact-active-class="active" class="hideOnMobile" v-if="!authStore.isAuthenticated">Iniciar sesión</router-link>
+            <Profile v-if="authStore.isAuthenticated"/>
             <li @click="showSidebar" class="showOnMobile">
                 <img src="/icons/hamburger-menu.svg" alt="">
 			</li>
@@ -32,7 +34,6 @@
                 <router-link to="/collections" exact-active-class="active">Colecciones</router-link>
                 <router-link to="/help" exact-active-class="active">Ayuda</router-link>
                 <router-link to="/login" exact-active-class="active">Iniciar sesión</router-link>
-                <router-link to="/search" exact-active-class="active">Buscador de Abocados</router-link>
 		</div>
 
     </header>
