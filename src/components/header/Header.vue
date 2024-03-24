@@ -95,7 +95,7 @@ hr {
 	display: none;
 }
 li > img {
-    width: 4rem;
+    width: 3.5rem;
 }
 .showOnMobile {
     display: none;
