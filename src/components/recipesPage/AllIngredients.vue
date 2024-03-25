@@ -6,7 +6,7 @@ import { ref, computed } from 'vue';
 const ingredientsStore = useIngredientsStore();
 const ingredients = ref([]);
 const currentPage = ref(1);
-const ingredientsPerPage = 25;
+const ingredientsPerPage = 24;
 
 const totalPages = computed(() => Math.ceil(ingredientsStore.ingredients.length / ingredientsPerPage));
 

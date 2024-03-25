@@ -1,12 +1,12 @@
 <script setup>
-import AddIngredientButton from "./../components/forms/AddIngredientButton.vue";
+import AddButtons from "./../components/forms/AddButtons.vue";
 
 </script>
 
 <template>
     <div>
         <section>
-            <AddIngredientButton/>
+            <AddButtons/>
         </section>
     </div>
 </template>

@@ -1,172 +1,184 @@
 <script setup>
-import SearchRecipeIngredients from '../SearchRecipeIngredients.vue';
-import { useIngredientsStore } from './../../stores/IngredientsStore';
-
-const store = useIngredientsStore();
-
-const props = defineProps({
-  onClose: Function
-});
-
-const closeForm = () => {
-  props.onClose();
-}
-
-const newIngredient = {
-  name: '',
-  weight: null,
-  unit: '',
-  calories: null,
-  fats: null,
-  saturatedFat: null,
-  monoinsaturatedFat: null,
-  polinsaturatedFat: null,
-  carbohydrate: null,
-  sugar: null,
-  fiber: null,
-  protein: null,
-  sodium: null,
-  potasio: null,
-  categoryName: ''
-  // array vacio
-  //añadir objetos dentro desde ingredientid
-};
-
-const addNewIngredient = async () => {
-  try {
-    await store.addIngredient(newIngredient);
-    Object.keys(newIngredient).forEach(key => {
-      newIngredient[key] = '';
-    });
-  } catch (error) {
-    console.error('Error al agregar el ingrediente:', error);
+  import { useRecipesStore } from './../../stores/RecipeStore';
+  import { useIngredientsStore } from './../../stores/IngredientsStore'; 
+  import { ref } from 'vue';
+        
+  const recipeStore = useRecipesStore();
+  const ingredientStore = useIngredientsStore();
+        
+  const props = defineProps({
+      onClose: Function
+  });
+        
+  const closeForm = () => {
+      props.onClose();
   }
-};
-
+        
+  const recipe = {
+    name: '',
+    description: '',
+    steps: '',
+    preparationTime: null,
+    portions: null,
+    collectionName: '',
+  };
+        
+        const recipeIngredients = ref([
+          { name: '', weight: null, unit: '' }
+        ]);
+        
+        const addNewIngredient = () => {
+          recipeIngredients.value.push({ name: '', weight: null, unit: '' });
+        };
+        
+        const addNewRecipe = async () => {
+          try {
+            const recipeIngredientsData = await Promise.all(recipeIngredients.value.map(async (ingredient) => {
+        
+              const foundIngredient = await ingredientStore.getIngredientByName(ingredient.name);
+        
+              const ingredientId = foundIngredient ? foundIngredient.id : null;
+              return {
+                ingredientId: ingredientId,
+                weight: ingredient.weight,
+                unit: ingredient.unit
+              };
+            }));
+        
+            const newRecipe = {
+              name: recipe.name,
+              description: recipe.description,
+              steps: recipe.steps,
+              preparationTime: recipe.preparationTime,
+              portions: recipe.portions,
+              collectionName: recipe.collectionName,
+              recipeIngredients: recipeIngredientsData
+            };
+        
+            await recipeStore.addRecipe(newRecipe);
+            closeForm();
+            clearForm();
+          } catch (error) {
+            console.error('Error al agregar la receta:', error);
+          }
+        };
+        
+        const clearForm = () => {
+          recipe.name = '';
+          recipe.description = '';
+          recipe.steps = '';
+          recipe.preparationTime = null;
+          recipe.portions = null;
+          recipe.collectionName = '';
+          recipeIngredients.value = [{ name: '', weight: null, unit: '' }];
+        };
+        
 </script>
 
 <template>
-  <section class="modal" @click="closeForm">
+  <section class="modal">
     <div class="modal_container" @click.stop>
 
       <div>
-        <button>
+        <button @click="closeForm">
             <img src="/icons/cross-icon.svg" alt="">
         </button>
       </div>
 
-      <form>
+      <form @submit.prevent="addNewRecipe">
 
-        <h1>Añade una nueva Receta:</h1>
+        <h1>Añade una nueva receta:</h1>
 
         <div>
-          
           <article>
-  <SearchRecipeIngredients/>
+
             <div class="input-group">
               <label for="name">Nombre:</label>
-              <input type="text" id="name" v-model="newIngredient.name" required pattern="[A-Za-z]+" title="Ingrese solo letras">
+              <input type="text" id="name" v-model="recipe.name" required>
             </div>
-            
-      
+  
             <div class="input-group">
-              <label for="weight">Peso (g):</label>
-              <div>
-                <input type="number" id="weight" v-model="newIngredient.weight" required>
-                <select id="unit" v-model="newIngredient.unit" required>
-                  <option value="gr">gr</option>
-                  <option value="ml">ml</option>
-                </select>
+              <label for="description">Descripción:</label>
+              <textarea id="description" v-model="recipe.description" required></textarea>
+            </div>
+  
+            <div class="input-group">
+              <label for="steps">Pasos:</label>
+              <textarea id="steps" v-model="recipe.steps" required></textarea>
+            </div>
+  
+            <div class="input-group">
+              <label for="preparationTime">Tiempo de preparación (min):</label>
+              <input type="number" id="preparationTime" v-model="recipe.preparationTime" required>
+            </div>
+  
+            <div class="input-group">
+              <label for="portions">Porciones:</label>
+              <input type="number" id="portions" v-model="recipe.portions" required>
+            </div>
+  
+            <div class="input-group">
+              <label for="collectionName">Nombre de la colección:</label>
+              <input type="text" id="collectionName" v-model="recipe.collectionName" required>
+            </div>
+          </article>
+
+          <article>
+            <h2>Ingredientes:</h2>
+            <div class="ingredient-columns">
+              <div class="column">
+                <div v-for="(ingredient, index) in recipeIngredients.slice(0, Math.ceil(recipeIngredients.length / 2))" :key="index" class="input-group">
+                  <label :for="'ingredientName_' + index">Nombre del ingrediente:</label>
+                  <input :id="'ingredientName_' + index" v-model="ingredient.name" required>
+                  <label :for="'ingredientWeight_' + index">Peso (g):</label>
+                  <input :id="'ingredientWeight_' + index" type="number" v-model="ingredient.weight" required>
+                  <label :for="'ingredientUnit_' + index">Unidad:</label>
+                  <select :id="'ingredientUnit_' + index" v-model="ingredient.unit" required>
+                    <option value="gramos">gramos</option>
+                    <option value="ml">ml</option>
+                  </select>
+                </div>
+              </div>
+              <div class="column">
+                <div v-for="(ingredient, index) in recipeIngredients.slice(Math.ceil(recipeIngredients.length / 2))" :key="index" class="input-group">
+                  <label :for="'ingredientName_' + index">Nombre del ingrediente:</label>
+                  <input :id="'ingredientName_' + index" v-model="ingredient.name" required>
+                  <label :for="'ingredientWeight_' + index">Peso (g):</label>
+                  <input :id="'ingredientWeight_' + index" type="number" v-model="ingredient.weight" required>
+                  <label :for="'ingredientUnit_' + index">Unidad:</label>
+                  <select :id="'ingredientUnit_' + index" v-model="ingredient.unit" required>
+                    <option value="gramos">gramos</option>
+                    <option value="ml">ml</option>
+                  </select>
+                </div>
               </div>
             </div>
-      
-            <div class="input-group">
-              <label for="calories">Calorías:</label>
-              <input type="number" id="calories" v-model="newIngredient.calories" required>
-            </div>
-            
-            <div class="input-group">
-              <label for="fats">Grasas:</label>
-              <input type="number" id="fats" v-model="newIngredient.fats" required>
-            </div>
-            
-            <div class="input-group">
-              <label for="saturatedFat">Grasas Saturadas:</label>
-              <input type="number" id="saturatedFat" v-model="newIngredient.saturatedFat" required>
-            </div>
-            
-            <div class="input-group">
-              <label for="monoinsaturatedFat">Grasas Monoinsaturadas:</label>
-              <input type="number" id="monoinsaturatedFat" v-model="newIngredient.monoinsaturatedFat" required>
-            </div>
-  
           </article>
-  
-          <article>
-  
-            <div class="input-group">
-              <label for="polinsaturatedFat">Grasas Polinsaturadas:</label>
-              <input type="number" id="polinsaturatedFat" v-model="newIngredient.polinsaturatedFat" required>
-            </div>
-            
-            <div class="input-group">
-              <label for="carbohydrate">Carbohidratos:</label>
-              <input type="number" id="carbohydrate" v-model="newIngredient.carbohydrate" required>
-            </div>
-            
-            <div class="input-group">
-              <label for="sugar">Azúcar:</label>
-              <input type="number" id="sugar" v-model="newIngredient.sugar" required>
-            </div>
-            
-            <div class="input-group">
-              <label for="fiber">Fibra:</label>
-              <input type="number" id="fiber" v-model="newIngredient.fiber" required>
-            </div>
-            
-            <div class="input-group">
-              <label for="protein">Proteína:</label>
-              <input type="number" id="protein" v-model="newIngredient.protein" required>
-            </div>
-            
-            <div class="input-group">
-              <label for="sodium">Sodio:</label>
-              <input type="number" id="sodium" v-model="newIngredient.sodium" required>
-            </div>
-            
-            <div class="input-group">
-              <label for="potasio">Potasio:</label>
-              <input type="number" id="potasio" v-model="newIngredient.potasio" required>
-            </div>
-  
-          </article>
-
+          <button @click.prevent="addNewIngredient">Agregar Ingrediente</button>
         </div>
 
-        <button type="submit">Agregar Ingrediente</button>
+        <button id="submit" type="submit">Agregar Receta</button>
       </form>
 
     </div>
   </section>
 </template>
 
+
 <style lang="scss" scoped>
 .modal {
     display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
-    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
 
 .modal_container {
-  height: 100%;
-  width: 100%;
   display: flex;
   background-color: white;
   border-radius: 10px;
@@ -183,7 +195,12 @@ const addNewIngredient = async () => {
       }
   }
 }
-
+.ingredient-columns, .column {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: auto;
+}
 form {
   display: flex;
   height: 100%;
@@ -223,7 +240,9 @@ form {
   }
 
 }
-
+#submit {
+  margin-top: 4rem;
+}
 .input-group {
   display: flex;
   justify-content: space-between;
@@ -272,4 +291,4 @@ form {
   }
 }
 
-</style>../SearchRecipeIngredients.vue
+</style>
