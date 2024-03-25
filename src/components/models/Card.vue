@@ -4,9 +4,10 @@ const props = defineProps({
     recipe: Object
 })
 
-function upperCaseFirstLetter(title) {
-    return title.charAt(0).toUpperCase() + title.slice(1);
-}
+function upperCaseFirstLetter(value) {
+  if (value === null) return ''; // Retorna un string vacío si value es null
+    return value.charAt(0).toUpperCase() + value.slice(1);
+    }
 const recipeName = upperCaseFirstLetter(props.recipe.name);
 
 </script>

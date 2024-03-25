@@ -1,25 +1,3 @@
-<script setup>
-import { useRecipesStore } from "./../stores/RecipeStore";
-import { ref, watchEffect } from "vue";
-import IngredientsFacts from "./../components/recipesPage/IngredientsFacts.vue";
-import OtherInformation from "./../components/recipesPage/OtherInformation.vue";
-
-const props = defineProps({
-    id: String,
-});
-
-const recipeStore = useRecipesStore();
-const recipe = ref(null);
-
-watchEffect(async () => {
-    if (props.id) {
-        await recipeStore.getRecipeById(Number(props.id));
-        const foundRecipe = recipeStore.recipes.find(item => item.id === Number(props.id));
-        recipe.value = foundRecipe || null;
-    }
-});
-</script>
-
 <template>
     <main v-if="recipe">
         <section id="main_recipe_data">
@@ -48,22 +26,67 @@ watchEffect(async () => {
                     <p> {{ recipe.portions }} portions</p>
                 </div>
                 <div>
-                    <router-link to="">cambia las porciones</router-link>
+                    <button @click="openForm">cambia las porciones</button>
+                    <button @click="deleteRecipe">eliminar receta</button>
                 </div>
             </div>
         </section>
         <section id="recipe_data">
             <div id="recipe_data_container">
-                <IngredientsFacts/>
-                <OtherInformation/>
+                <NutrientTableRecipe :recipe="recipe" />
+                <OtherInformation :recipe="recipe" />
+                <ChangePortions v-if="isFormOpen" :recipe="recipe" :newPortions="newPortions"  @submit="submitForm" />
             </div>
         </section>
     </main>
 </template>
 
+<script setup>
+import { useRecipesStore } from "./../stores/RecipeStore";
+import { ref, watchEffect } from "vue";
+import OtherInformation from "./../components/recipesPage/OtherInformation.vue";
+import NutrientTableRecipe from "../components/NutrientTableRecipe.vue";
+import ChangePortions from "./../components/ChangePortions.vue";
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const props = defineProps({
+    id: String,
+});
+
+const recipeStore = useRecipesStore();
+const recipe = ref(null);
+const isFormOpen = ref(false);
+const newPortions = ref(0);
+
+watchEffect(async () => {
+    if (props.id) {
+        await recipeStore.getRecipeById(Number(props.id));
+        const foundRecipe = recipeStore.recipes.find(item => item.id === Number(props.id));
+        recipe.value = foundRecipe || null;
+    }
+});
+
+const openForm = () => {
+    isFormOpen.value = true;
+};
+
+const submitForm = () => {
+    recipeStore.updateRecipe(recipe.value.id, { portions: newPortions.value });
+    isFormOpen.value = false;
+};
+
+const deleteRecipe = async () => {
+    if (recipe.value) {
+        await recipeStore.deleteRecipe(recipe.value.id);
+        router.push('/');
+    }
+};
+</script>
+
 <style lang="scss" scoped>
 
-// main data of the recipe section
 #main_recipe_data {
     height: 45rem;
     max-width: 1200px;
@@ -75,6 +98,7 @@ watchEffect(async () => {
     > article {
         background-color: white;
         height: 75%;
+        border-radius: 30px;
         filter: drop-shadow(0px 0px 20px #80808072);
         display: flex;
     }
@@ -99,7 +123,7 @@ watchEffect(async () => {
                 font-weight: 900;
             }
 
-            a {
+            button {
                 border-radius: 10px;
                 padding: 1rem;
                 transition: all 200ms ease-in-out;
@@ -107,7 +131,7 @@ watchEffect(async () => {
                 color: white;
                 font-weight: 700
             }
-            a:hover {
+            button:hover {
                 background-color: $button-hover;
                 filter: drop-shadow(0px 0px 10px $button-hover-shadow);
             }
@@ -116,6 +140,7 @@ watchEffect(async () => {
     }
 }
 #data_container {
+    border-radius: 30px 0 0 30px;
     width: 50%;
     padding: 2rem;
     display: flex;
@@ -143,15 +168,16 @@ watchEffect(async () => {
 #imagen_container {
     background-color: $not_found;
     width: 50%;
+    border-radius: 0 30px 30px 0;
 }
 
-// ingredients and nutrient facts
 #recipe_data {
     background-color: white;
     filter: drop-shadow(0px -8px 16px #d8d8d8);
     margin-top: -10.5rem;
 
     > #recipe_data_container {
+        
         display: flex;
         gap: 3rem;
         justify-content: center;

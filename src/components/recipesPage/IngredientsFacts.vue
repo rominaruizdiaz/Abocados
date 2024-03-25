@@ -4,14 +4,13 @@
 
 <template>
     <section>
-        vvvvvv
     </section>
 </template>
 
 <style lang="scss" scoped>
 
 section {
-    background-color: aqua;
+
     width: 30rem;
     padding: 1rem;
 }
